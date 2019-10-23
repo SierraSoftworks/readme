@@ -1,0 +1,9 @@
+<div class="expander">
+    <div :class="{ 'expander-content': true, 'expander-content__expanded': value }">
+        <slot></slot>
+    </div>
+
+    <div class="expander-control" @click="toggleState()">
+        <i :class="{ 'el-icon-caret-bottom': !value, 'el-icon-caret-top': value }"></i>
+    </div>
+</div>

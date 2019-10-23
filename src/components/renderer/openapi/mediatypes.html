@@ -1,0 +1,9 @@
+<div>
+    <highlight v-if="media && example(media.schema, mode)" :value="renderExample(media.schema, mode)"
+        :lang="renderLanguage">
+    </highlight>
+
+    <h5 v-if="media && media.schema">Schema</h5>
+    <highlight v-if="media && media.schema" :value="media.schema | yaml" lang="yaml">
+    </highlight>
+</div>

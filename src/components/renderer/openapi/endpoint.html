@@ -1,0 +1,70 @@
+<div class="openapi-endpoint" :key="key()">
+    <div class="openapi-endpoint__header clearfix">
+        <h3>
+            {{ endpoint.summary }}
+            <el-tag v-for="tag in endpoint.tags" :key="key('tags', tag)">{{ tag }}
+            </el-tag>
+
+            <span style="float: right;">
+                <strong>{{ method.toUpperCase() }}</strong>
+                {{ url }}
+
+            </span>
+        </h3>
+
+        <markdown :value="endpoint.description"></markdown>
+    </div>
+
+    <expander v-model="expanded">
+        <div class="openapi-endpoint__content">
+            <el-tabs v-model="selectedContentType">
+                <el-tab-pane v-for="contentType in contentTypes" :key="contentType" :label="contentType"
+                    :name="contentType">
+
+                </el-tab-pane>
+            </el-tabs>
+
+            <el-row :gutter="40">
+                <el-col :span="12">
+                    <h4>Request</h4>
+                    <openapi-request-headers :url="url" :method="method" :headers="endpoint.parameters"
+                        :contentType="endpoint.requestBody && endpoint.requestBody.content && selectedContentType || null">
+                    </openapi-request-headers>
+
+
+                    <div v-if="endpoint.requestBody && endpoint.requestBody.content">
+                        <openapi-mediatypes :content="endpoint.requestBody.content" :contentType="selectedContentType"
+                            mode="write">
+                        </openapi-mediatypes>
+                    </div>
+                </el-col>
+                <el-col :span="12">
+                    <h4>Responses</h4>
+                    <el-collapse v-model="selectedResponseCode" accordion>
+                        <el-collapse-item :title="statusCode" :name="statusCode"
+                            v-for="(response, statusCode) in endpoint.responses"
+                            :key="key(endpoint.operationId, 'responses', statusCode)">
+                            <template slot="title">
+                                <h5>
+                                    HTTP {{statusCode}}
+                                    <span v-if="response.description">- <markdown :inline="true"
+                                            :value="response.description">
+                                        </markdown></span>
+                                </h5>
+                            </template>
+
+                            <h5>Example</h5>
+                            <openapi-response-headers :statusCode="statusCode" :headers="response.headers"
+                                :contentType="response.content && selectedContentType || null">
+                            </openapi-response-headers>
+
+                            <openapi-mediatypes v-if="response.content" :content="response.content"
+                                :contentType="selectedContentType" mode="read">
+                            </openapi-mediatypes>
+                        </el-collapse-item>
+                    </el-collapse>
+                </el-col>
+            </el-row>
+        </div>
+    </expander>
+</div>

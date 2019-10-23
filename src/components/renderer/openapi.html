@@ -1,0 +1,25 @@
+<div>
+    <div v-if="!doc">
+        Could not parse the document
+    </div>
+    <div v-else>
+        <h1>
+            {{ doc.info.title }}
+
+            <el-tag v-if="doc.info.version">{{ doc.info.version }}</el-tag>
+
+            <el-tag v-if="doc.info.license" type="success">{{ doc.info.license.name }}</el-tag>
+        </h1>
+
+        <markdown :value="doc.info.description"></markdown>
+
+        <h2>Endpoints</h2>
+        <div v-for="(path, url) in doc.paths" :key="key(url)">
+
+            <openapi-endpoint v-for="(endpoint, method) in path" :key="endpoint.operationId" :endpoint="endpoint"
+                :method="method" :url="url">
+            </openapi-endpoint>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>README</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.12.0/theme-chalk/index.css" />
+    <link rel="stylesheet" href="/index.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div id="app">
+        <el-container class="app">
+            <el-header class="header" height="65px">
+                <h2>
+                    <span class="header__name">README</span>
+                    <span class="header__separator">::</span>
+                    <span class="header__service">github.com</span>
+                    <span class="header__separator">/</span>
+                    <span class="header__owner">SierraSoftworks</span>
+                    <span class="header__separator">/</span>
+                    <span class="header__repo">rex-csharp</span>
+                </h2>
+            </el-header>
+            <el-main class="content">
+                <router-view :key="$route.fullPath"></router-view>
+            </el-main>
+        </el-container>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"
+        integrity="sha256-1fEPhSsRKlFKGfK3eO710tEweHh1fwokU5wFGDHO+vg=" crossorigin="anonymous"
+        data-main="/index.js"></script>
+    <script src="/bundle.js"></script>
+</body>
+
+</html>
