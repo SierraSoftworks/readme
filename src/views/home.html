@@ -8,8 +8,7 @@
         <el-carousel class="repo-showcase" height="100px" indicator-position="outside">
             <el-carousel-item v-for="repo in repos" :key="repo.id">
                 <h3 class="clearfix">
-                    <router-link
-                        :to="{ name: 'repo', params: { service: 'github.com', owner: repo.owner.login, repo: repo.name } }">
+                    <router-link :to="{ name: 'github-repo', params: { owner: repo.owner.login, repo: repo.name } }">
                         {{ repo.name }}</router-link>
                 </h3>
 
