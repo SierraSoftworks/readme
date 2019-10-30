@@ -1,18 +1,38 @@
 #!/usr/bin/env node
 
-const historyFallback = require('connect-history-api-fallback');
 const browserSync = require('browser-sync').create();
 const ts = require('typescript');
+const fs = require('fs');
 
 const configPath = ts.findConfigFile("./", ts.sys.fileExists, "tsconfig.json");
 if (!configPath) throw new Error("Could not find a valid 'tsconfig.json' file");
 
 browserSync.init({
     files: ['src/**/*', '!src/**/*.ts'],
+    single: true,
+    notify: false,
     server: {
         baseDir: 'src',
-        middleware: [historyFallback()],
+        middleware: [
+
+        ],
     },
+}, (err, bs) => {
+    bs.addMiddleware("*", (req, res) => {
+        fs.readFile("src/index.html", (err, data) => {
+            if (err) {
+                res.writeHead(404)
+                res.end(`Cannot ${req.method} ${req.url} (${err})`)
+                return
+            }
+
+            res.writeHead(200, {
+                "content-type": "text/html; charset=utf-8"
+            })
+
+            res.end(data)
+        })
+    })
 });
 
 const tscHost = ts.createWatchCompilerHost(

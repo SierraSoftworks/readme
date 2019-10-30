@@ -13,5 +13,6 @@
             "dom"
         ],
         "outFile": "src/bundle.js",
+        "sourceMap": true
     }
 }

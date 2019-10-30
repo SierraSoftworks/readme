@@ -1,17 +1,19 @@
 import Vue from "vue"
 import Component from "vue-class-component"
-import { FileResponse } from "../../api/github"
+import { GitHubFile } from "../../api/github"
 import MarkdownRenderer from "./markdown"
 import UnsupportedRenderer from "./unsupported"
 import OpenAPIRenderer from "./openapi"
+import JsonRenderer from "./json"
 
 type RendererType = typeof Vue & {
-    canRender(file: FileResponse): boolean;
+    canRender(file: GitHubFile): boolean;
 }
 
 const renderers: RendererType[] = [
     MarkdownRenderer,
     OpenAPIRenderer,
+    JsonRenderer,
     UnsupportedRenderer
 ]
 
@@ -27,7 +29,7 @@ const renderers: RendererType[] = [
     }
 })
 export default class Renderer extends Vue {
-    file!: FileResponse
+    file!: GitHubFile
 
     get contentRenderer(): typeof Vue {
         if (!this.file) return null;

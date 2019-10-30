@@ -1,11 +1,15 @@
 import Vue from "vue"
 import Component from "vue-class-component"
-import * as template from "text!./unsupported.html"
+import * as template from "text!./json.html"
 import { GitHubFile } from "../../api/github"
+import Highlight from "../highlight"
 
 @Component({
-    name: "unsupported-renderer",
+    name: "json-renderer",
     template,
+    components: {
+        highlight: Highlight
+    },
     props: {
         file: {
             type: Object,
@@ -13,7 +17,7 @@ import { GitHubFile } from "../../api/github"
         }
     }
 })
-export default class UnsupportedRenderer extends Vue {
+export default class JsonRenderer extends Vue {
     file!: GitHubFile
 
     get content() {
@@ -21,6 +25,6 @@ export default class UnsupportedRenderer extends Vue {
     }
 
     static canRender(file: GitHubFile): boolean {
-        return true
+        return file.name.endsWith(".json")
     }
 }

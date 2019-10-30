@@ -30,8 +30,7 @@ function asyncComponent(module: string) {
 
 const routes = [
     { name: 'home', path: "/", component: asyncComponent("views/home") },
-    { name: 'repo', path: "/:service/:owner/:repo", component: asyncComponent("views/readme"), props },
-    { name: 'repo-file', path: "/:service/:owner/:repo/:path+", component: asyncComponent("views/readme"), props },
+    { name: 'github-repo', path: "/github.com/:owner/:repo/:path*", component: asyncComponent("views/github"), props }
 ]
 
 export const router = new VueRouter({

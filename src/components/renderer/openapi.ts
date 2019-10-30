@@ -1,6 +1,6 @@
 import Vue from "vue"
 import Component from "vue-class-component"
-import { FileResponse } from "../../api/github"
+import { GitHubFile } from "../../api/github"
 import Markdown from "../markdown"
 import * as yaml from "js-yaml";
 import { OpenAPIDoc, OpenAPIReference, openAPIResolve, OpenAPISchema, openAPIExample, OpenAPIVisitor, OpenAPIEndpoint, OpenAPIRequestBody } from "../../formats/openapi";
@@ -29,7 +29,18 @@ import OpenAPIEndpointView from "./openapi/endpoint";
     }
 })
 export default class OpenAPIRenderer extends Vue {
-    file!: FileResponse
+    file!: GitHubFile
+
+    selected: {
+        method: string
+        url: string
+    } = null
+
+    get endpoint(): OpenAPIEndpoint {
+        if (!this.selected) return null
+        if (!this.doc) return null
+        return ((this.doc.paths || {})[this.selected.url] || {})[this.selected.method] || null
+    }
 
     doc: OpenAPIDoc = null
 
@@ -37,7 +48,7 @@ export default class OpenAPIRenderer extends Vue {
         this.loadDocument(this.file)
     }
 
-    loadDocument(f: FileResponse) {
+    loadDocument(f: GitHubFile) {
         const text = f && atob(f.content) || ""
         if (!text) this.doc = null;
         else {
@@ -59,7 +70,7 @@ export default class OpenAPIRenderer extends Vue {
         return parts.join("__")
     }
 
-    static canRender(file: FileResponse): boolean {
+    static canRender(file: GitHubFile): boolean {
         if (![".yaml", ".yml"].some(name => file.name.toLowerCase().endsWith(name)))
             return false;
 

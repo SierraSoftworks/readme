@@ -1,6 +1,6 @@
 import Vue from "vue"
 import Component from "vue-class-component"
-import { FileResponse } from "../../api/github"
+import { GitHubFile } from "../../api/github"
 import Markdown from "../markdown"
 
 @Component({
@@ -17,13 +17,13 @@ import Markdown from "../markdown"
     }
 })
 export default class MarkdownRenderer extends Vue {
-    file!: FileResponse
+    file!: GitHubFile
 
     get content() {
         return this.file && atob(this.file.content) || ""
     }
 
-    static canRender(file: FileResponse): boolean {
+    static canRender(file: GitHubFile): boolean {
         return [".md", ".markdown", "readme"].some(name => file.name.toLowerCase().endsWith(name));
     }
 }

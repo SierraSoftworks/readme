@@ -96,6 +96,8 @@ pre > code {
 
 .header__name {
     font-weight: 100;
+    text-decoration: none;
+    color: #000;
 }
 
 .header__separator {
@@ -186,6 +188,35 @@ pre > code {
     font-style: italic
 }
 
+.openapi-operation {
+    clear: both;
+    border-left: 3px solid #888;
+    padding: 15px 5px;
+    cursor: pointer;
+}
+
+.openapi-operation.active {
+    border-left: 3px solid #409EFF;
+}
+
+.openapi-operation__name {
+    font-weight: 400;
+    margin: 0 10px;
+}
+
+.openapi-operation__http {
+    font-family: 'Fira Code', 'Courier New', Courier, monospace;
+    margin: 0 10px;
+}
+
+.openapi-operation__method {
+    font-weight: bold;
+}
+
+.openapi-operation__url {
+    font-weight: 100;
+}
+
 .openapi-endpoint {
     margin-bottom: 50px;
     border-radius: 5px;
@@ -200,9 +231,6 @@ pre > code {
 
 .openapi-endpoint__content {
     padding: 20px;
-}
-
-.openapi-endpoint .expander-content {
     background: #f6f6f6;
 }
 
@@ -210,4 +238,8 @@ pre > code {
 .openapi-endpoint__content .el-collapse-item__content,
 .openapi-endpoint__content .el-collapse-item__wrap {
     background: #f6f6f6;
+}
+
+.repo-showcase .el-carousel__item {
+    text-align: center;
 }

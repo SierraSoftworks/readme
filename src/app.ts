@@ -21,6 +21,9 @@ export const app = new Vue({
         api() {
             return store.state.api
         },
+        target() {
+            return store.state.target
+        },
 
         error() {
             return store.state.requestError
@@ -30,8 +33,8 @@ export const app = new Vue({
         error(err) {
             if (!err) return
             this.$notify.error({
-                title: `${err.code || 500} ${err.name || 'Server Error'}`,
-                message: err.message || err,
+                title: `Woops!`,
+                message: err.message,
                 duration: 0
             })
         }
