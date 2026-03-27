@@ -7,12 +7,12 @@ on:
     branches: [ main ]
 
 env:
-  STAGING_DEPLOYMENT_CLIENT_ID: e0d46426-bd93-4bb2-9b5a-cabb0af9a509
+  STAGING_DEPLOYMENT_CLIENT_ID: 368bddbe-1028-4581-999c-1a6679491293
   STAGING_STORAGE_CONTAINER: "$web"
   STAGING_STORAGE_ACCOUNT: "readmesierrasoftworksbta"
   STAGING_HEALTHCHECK: "https://readme-staging.sierrasoftworks.com/"
 
-  LIVE_DEPLOYMENT_CLIENT_ID: 25c19850-5c4e-4b6e-9257-a6e62b31e2e7
+  LIVE_DEPLOYMENT_CLIENT_ID: 91ec3c56-4bb1-4002-89fc-2e360f574e4e
   LIVE_STORAGE_CONTAINER: "$web"
   LIVE_STORAGE_ACCOUNT: "readmesierrasoftworks"
   LIVE_HEALTHCHECK: "https://readme.sierrasoftworks.com/"
