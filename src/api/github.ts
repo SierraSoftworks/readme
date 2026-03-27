@@ -1,6 +1,5 @@
-import { store } from "../store";
-import * as helpers from "./helpers";
-import { Target, TargetPath } from "./target";
+import * as helpers from "./helpers"
+import { Target, TargetPath } from "./target"
 
 export interface GitHubFile {
     type: "file"
@@ -99,6 +98,13 @@ export function getFile(path: TargetPath) {
 export function getRepoContents(path: TargetPath) {
     return fetch(helpers.buildUrl(getAPIBase(), "/repos", path.owner, path.repo, "/contents", path.path))
         .then(res => helpers.apiHandleResponse<GitHubRepoEntry | GitHubRepoEntry[]>(res, true));
+}
+
+export function getFileContent(file: GitHubFile): string {
+    // See https://stackoverflow.com/a/30106551
+    return decodeURIComponent(atob(file.content).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
 }
 
 function getAPIBase() {

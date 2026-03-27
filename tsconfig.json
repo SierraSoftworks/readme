@@ -1,18 +1,31 @@
 {
     "include": [
-        "src/**/*.ts"
+        "src/**/*.ts",
+        "src/**/*.vue"
     ],
     "compilerOptions": {
-        "target": "es6",
-        "module": "amd",
-        "moduleResolution": "node",
-        "experimentalDecorators": true,
-        "allowJs": true,
+        "target": "ESNext",
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "allowImportingTsExtensions": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "jsx": "preserve",
         "lib": [
-            "es2015",
-            "dom"
+            "ESNext",
+            "DOM",
+            "DOM.Iterable"
         ],
-        "outFile": "src/bundle.js",
-        "sourceMap": true
+        "types": ["vite/client"],
+        "rootDir": ".",
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["src/*"]
+        },
+        "sourceMap": true,
+        "strict": false,
+        "skipLibCheck": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true
     }
 }

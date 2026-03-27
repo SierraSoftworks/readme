@@ -1,17 +1,20 @@
-import Vue from "vue"
-import * as dayjs from "dayjs"
-import * as dayjsrt from "dayjs/plugin/relativeTime"
-import * as dayjscal from "dayjs/plugin/calendar"
+import dayjs from "dayjs"
+import relativeTimePlugin from "dayjs/plugin/relativeTime"
+import calendarPlugin from "dayjs/plugin/calendar"
+import utcPlugin from "dayjs/plugin/utc"
 
-dayjs.extend(dayjsrt)
-dayjs.extend(dayjscal)
+dayjs.extend(relativeTimePlugin)
+dayjs.extend(calendarPlugin)
+dayjs.extend(utcPlugin)
 
-const relativeTime = Vue.filter("relativeTime", value => dayjs.utc(value).local().fromNow())
-const calendarTime = Vue.filter("calendarTime", (value) => dayjs.utc(value).calendar())
-const formatTime = Vue.filter("formatTime", (value, format) => dayjs.utc(value).format(format || "YYYY-MM-DD HH:mm"))
+export function relativeTime(value: string) {
+    return dayjs.utc(value).local().fromNow()
+}
 
-export {
-    relativeTime,
-    calendarTime,
-    formatTime
+export function calendarTime(value: string) {
+    return dayjs.utc(value).calendar()
+}
+
+export function formatTime(value: string, format?: string) {
+    return dayjs.utc(value).format(format || "YYYY-MM-DD HH:mm")
 }

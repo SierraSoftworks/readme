@@ -1,4 +1,4 @@
-import { OpenAPISchema } from "../../../formats/openapi";
+import type { OpenAPISchema } from "@/formats/openapi"
 
 export function generateExampleXML(schema: OpenAPISchema, mode: "read" | "write"): string {
     const docType = `<?xml version="1.0" encoding="UTF-8"?>`
@@ -6,7 +6,7 @@ export function generateExampleXML(schema: OpenAPISchema, mode: "read" | "write"
     const generator = new XMLExampleGenerator(mode)
     try {
         generator.visit(schema)
-    } catch (err) {
+    } catch (err: any) {
         return `${docType}\n<-- ${err.message} -->`
     }
 
@@ -14,9 +14,7 @@ export function generateExampleXML(schema: OpenAPISchema, mode: "read" | "write"
 }
 
 class XMLExampleGenerator {
-    constructor(private mode: "read" | "write") {
-
-    }
+    constructor(private mode: "read" | "write") {}
 
     private propertyStack: string[] = []
     private elementStack: Element[] = [
@@ -64,7 +62,7 @@ class XMLExampleGenerator {
         this.elementStack.push(this.addElement(name))
 
         Object.keys(schema.properties || {}).forEach(k => {
-            this.visitProperty(k, schema.properties[k])
+            this.visitProperty(k, schema.properties![k] as OpenAPISchema)
         })
 
         this.endElement()
@@ -80,7 +78,7 @@ class XMLExampleGenerator {
             this.elementStack.push(this.addElement(name))
         }
 
-        this.visit(schema.items)
+        this.visit(schema.items as OpenAPISchema)
 
         if (xml.wrapped) this.endElement()
     }
@@ -98,7 +96,7 @@ class XMLExampleGenerator {
     }
 
     private visitValue(schema: OpenAPISchema, formatter: (example: any) => string) {
-        if (!schema.example) return;
+        if (!schema.example) return
 
         const xml = schema.xml || {}
         const name = xml.name || this.currentProperty
@@ -127,7 +125,7 @@ class XMLExampleGenerator {
     }
 
     private endElement(): Element {
-        const child = this.elementStack.pop()
+        const child = this.elementStack.pop()!
 
         this.currentElement.appendChild(document.createTextNode(`\n${this.indentation.substr(2)}`))
         this.indented = true
