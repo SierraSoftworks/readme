@@ -100,6 +100,13 @@ export function getRepoContents(path: TargetPath) {
         .then(res => helpers.apiHandleResponse<GitHubRepoEntry | GitHubRepoEntry[]>(res, true));
 }
 
+export function getFileContent(file: GitHubFile): string {
+    // See https://stackoverflow.com/a/30106551
+    return decodeURIComponent(atob(file.content).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+}
+
 function getAPIBase() {
     return "https://api.github.com"
 }

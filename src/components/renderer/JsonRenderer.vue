@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue"
-import type { GitHubFile } from "@/api/github"
+import { getFileContent, type GitHubFile } from "@/api/github"
 import Highlight from "@/components/Highlight.vue"
 
 const canRender = (file: GitHubFile): boolean => {
@@ -25,7 +25,7 @@ export default defineComponent({
     },
     computed: {
         content(): string {
-            return this.file && atob(this.file.content) || ""
+            return this.file && getFileContent(this.file) || ""
         }
     }
 })

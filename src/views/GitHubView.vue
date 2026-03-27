@@ -67,7 +67,7 @@ export default defineComponent({
             required: true
         },
         path: {
-            type: String,
+            type: Array,
             required: false
         },
         branch: {
@@ -141,7 +141,7 @@ export default defineComponent({
                 service: "github.com",
                 owner: this.owner,
                 repo: this.repo,
-                path: this.path || null,
+                path: (this.path || []).join("/") || null,
                 branch: this.branch || null,
             } as Target)
         },
@@ -155,13 +155,13 @@ export default defineComponent({
             }
             this.$store.commit(MUT_LOADING, false)
         },
-        setPath(path: string | null) {
+        setPath(path: string[] | string | null) {
             this.$router.push({
                 name: this.$route.name!,
                 params: {
                     owner: this.owner,
                     repo: this.repo,
-                    path: path || ""
+                    path: Array.isArray(path) ? path.join("/") : path || ""
                 },
                 query: {
                     branch: this.branch || ""

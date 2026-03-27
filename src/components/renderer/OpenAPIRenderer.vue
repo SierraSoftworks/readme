@@ -48,7 +48,7 @@
 <script lang="ts">
 import { defineComponent } from "vue"
 import jsYaml from "js-yaml"
-import type { GitHubFile } from "@/api/github"
+import { getFileContent, type GitHubFile } from "@/api/github"
 import type { OpenAPIDoc, OpenAPIReference, OpenAPISchema, OpenAPIEndpoint as OpenAPIEndpointType } from "@/formats/openapi"
 import { openAPIResolve, openAPIExample, OpenAPIVisitor } from "@/formats/openapi"
 import Markdown from "@/components/Markdown.vue"
@@ -110,7 +110,7 @@ export default defineComponent({
     },
     methods: {
         loadDocument(f: GitHubFile) {
-            const text = f && atob(f.content) || ""
+            const text = f && getFileContent(f) || ""
             if (!text) {
                 this.doc = null
             } else {
