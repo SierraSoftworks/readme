@@ -1,6 +1,5 @@
-import { store } from "../store";
-import * as helpers from "./helpers";
-import { Target, TargetPath } from "./target";
+import * as helpers from "./helpers"
+import { Target, TargetPath } from "./target"
 
 export interface GitHubFile {
     type: "file"

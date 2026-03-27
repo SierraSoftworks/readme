@@ -1,40 +1,25 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import { Route } from "vue-router";
-import { store } from "./store";
+import { createRouter, createWebHistory, RouteLocationNormalized } from "vue-router"
 
-Vue.use(VueRouter);
-
-/**
- * Helper method to parse query parameters and route parameters into
- * a route's `props` property. Define the route with `{ props: routeProps }`
- * to enable this.
- * @param route The route that should have its properties populated
- */
-function props(route: Route) {
-    return Object.assign({}, route.query, route.params);
-}
-
-/**
- * Allows you to load a component asynchronously, provided that component
- * exports itself as the default export on its module.
- * @param module The path of the module that the component is defined in
- */
-function asyncComponent(module: string) {
-    return () => new Promise((resolve) => {
-        requirejs([module], function (component) {
-            resolve(component.default)
-        })
-    })
+function props(route: RouteLocationNormalized) {
+    return Object.assign({}, route.query, route.params)
 }
 
 const routes = [
-    { name: 'home', path: "/", component: asyncComponent("views/home") },
-    { name: 'github-repo', path: "/github.com/:owner/:repo/:path*", component: asyncComponent("views/github"), props }
+    {
+        name: "home",
+        path: "/",
+        component: () => import("./views/HomeView.vue")
+    },
+    {
+        name: "github-repo",
+        path: "/github.com/:owner/:repo/:path*",
+        component: () => import("./views/GitHubView.vue"),
+        props
+    }
 ]
 
-export const router = new VueRouter({
+export const router = createRouter({
     routes,
-    mode: "history",
+    history: createWebHistory(),
     linkActiveClass: "active"
 })

@@ -1,29 +1,31 @@
-# vue-template [![Build Status](https://travis-ci.org/SierraSoftworks/vue-template.svg?branch=master)](https://travis-ci.org/SierraSoftworks/vue-template)
-**An ultra-lightweight Vue web application template**
+# README
+**Beautiful documentation straight from GitHub**
 
-This template tries to push the limits of how light a Vue application can
-be while still offering an extensive set of features. It tries its best to
-avoid having heavy devlopment dependencies (like WebPack and Babel) while
-still allowing you to write your code in TypeScript and make use of some of
-the great libraries available for Vue.js.
+README is a web application built with Vue 3 and Element Plus that renders
+documentation files directly from GitHub repositories. It supports Markdown,
+OpenAPI specifications, JSON files, and more — all presented with a clean,
+modern interface.
 
 ## Features
+ - Vue 3
+ - Element Plus
  - TypeScript
- - Vue.js
- - ElementUI
- - Vue-Router
+ - Vite
+ - Vue Router
  - Vuex
- - Material Icons
  - Markdown Support
- - Browser-Sync
- - Builds a Docker container
-
-There are also a number of example filters, components and views to showcase
-how to use the template, not to mention a store implementation and API client.
+ - OpenAPI 3.0.x Viewer
+ - Syntax Highlighting (highlight.js)
 
 ## Development
 ```bash
-npm install # Install everything you need
-npm run watch # Compile your TypeScript changes on the fly
-npm start # Start up Browser-Sync to automatically refresh when changes are made
+npm install     # Install dependencies
+npm start       # Start the Vite dev server
+npm run build   # Build for production
+npm run preview # Preview the production build
 ```
+
+## Deployment
+The project is deployed to Azure Blob Storage via GitHub Actions. Pushes to
+`main` are automatically built and deployed through staging and production
+environments.

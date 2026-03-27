@@ -1,6 +1,3 @@
-import Vue from "vue"
-
-const json = Vue.filter("json", value => JSON.stringify(value, null, 2))
-export {
-    json
+export function json(value: any) {
+    return JSON.stringify(value, null, 2)
 }

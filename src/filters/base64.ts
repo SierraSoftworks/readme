@@ -1,8 +1,7 @@
-import Vue from "vue"
+export function base64encode(value: string) {
+    return btoa(value)
+}
 
-const base64encode = Vue.filter("base64encode", value => btoa(value))
-const base64decode = Vue.filter("base64decode", value => atob(value))
-export {
-    base64encode,
-    base64decode
+export function base64decode(value: string) {
+    return atob(value)
 }
