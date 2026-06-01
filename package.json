@@ -16,7 +16,7 @@
     "dependencies": {
         "@element-plus/icons-vue": "^2.3.1",
         "dayjs": "^1.11.21",
-        "element-plus": "^2.14.0",
+        "element-plus": "^2.14.1",
         "highlight.js": "^11.11.1",
         "js-yaml": "^4.2.0",
         "markdown-it": "^14.2.0",
