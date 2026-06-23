@@ -47,7 +47,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue"
-import jsYaml from "js-yaml"
+import { load } from "js-yaml"
 import { getFileContent, type GitHubFile } from "@/api/github"
 import type { OpenAPIDoc, OpenAPIReference, OpenAPISchema, OpenAPIEndpoint as OpenAPIEndpointType } from "@/formats/openapi"
 import { openAPIResolve, openAPIExample, OpenAPIVisitor } from "@/formats/openapi"
@@ -70,7 +70,7 @@ const canRender = (file: GitHubFile): boolean => {
         return false
 
     try {
-        const doc = jsYaml.load(atob(file.content)) as OpenAPIDoc
+        const doc = load(atob(file.content)) as OpenAPIDoc
         return ["3.0.0", "3.0.1", "3.0.2"].some(x => x == doc.openapi)
     } catch {
         return false
@@ -114,7 +114,7 @@ export default defineComponent({
             if (!text) {
                 this.doc = null
             } else {
-                const doc = jsYaml.load(text) as OpenAPIDoc
+                const doc = load(text) as OpenAPIDoc
                 const flattener = new OpenAPIFlattener(doc)
                 this.doc = flattener.visit(doc)
             }
