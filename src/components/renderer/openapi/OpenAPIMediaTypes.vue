@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue"
-import jsYaml from "js-yaml"
+import { dump } from "js-yaml"
 import type { OpenAPIMediaType, OpenAPISchema } from "@/formats/openapi"
 import Highlight from "@/components/Highlight.vue"
 import { generateExampleXML } from "./xml"
@@ -53,7 +53,7 @@ export default defineComponent({
     methods: {
         yamlFilter(value: any): string {
             if (typeof value === "undefined") return ""
-            return jsYaml.dump(value, { indent: 2 })
+            return dump(value, { indent: 2 })
         },
         example(schema: OpenAPISchema, mode: "read" | "write"): any {
             if (!schema) return undefined
@@ -80,7 +80,7 @@ export default defineComponent({
             switch (this.renderLanguage) {
                 case "json": return JSON.stringify(example, null, 2)
                 case "xml": return generateExampleXML(schema, mode)
-                case "yaml": return jsYaml.dump(example, { indent: 2 })
+                case "yaml": return dump(example, { indent: 2 })
             }
 
             return String(example)
